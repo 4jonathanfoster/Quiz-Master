@@ -1,70 +1,165 @@
 console.log('quiz')
 
 
- var startButtonHtml = document.querySelector("#startButtonHtml");
+var startButtonHtml = document.querySelector("#startButtonHtml");
 
- var quizContainerHtml = document.querySelector("#quizContainerHtml");
- var quizQuestionsHtml = document.querySelector("#quizQuestionsHtml");
- var quizAnswerHtml = document.querySelector("#quizAnswerHtml");
- var oneHtml = document.querySelector("#oneHtml");
- var twoHtml = document.querySelector("#twoHtml");
- var threeHtml = document.querySelector("#threeHtml");
- var fourHtml = document.querySelector("#fourHtml");
+var quizContainerHtml = document.querySelector("#quizContainerHtml");
+var quizQuestionHtml = document.querySelector("#quizQuestionHtml");
+var quizAnswerHtml = document.querySelector("#quizAnswerHtml");
+var oneHtml = document.querySelector("#oneHtml");
+var twoHtml = document.querySelector("#twoHtml");
+var threeHtml = document.querySelector("#threeHtml");
+var fourHtml = document.querySelector("#fourHtml");
+var timerCount = document.querySelector("#timerCount")
 
- 
+
 //  var  = "";
 //  var = 0;
 //  var  = 0;
 //  var  = 0;
 //  var isWin = false;
 //  var timer;
-//  var timerCount;
+var timeLeft = 60;
+var userScore = 100
 
- var question =[questionONE, questionTwo, questionThree, questionFour];
- 
- var  questionONE = {
-      question: 'What is an object?',
-      answer1: 'A',
-      answer2: 'B',
-      answer3: 'C',
-      answer4: 'D'
- }
- var  questionTwo = {
-      question: 'what is an Array?',
-      answer1: 'A',
-      answer2: 'B',
-      answer3: 'C',
-      answer4: 'D'
- }
- var  questionThree = {
-      question: 'what is a DOM?',
-      answer1: 'A',
-      answer2: 'B',
-      answer3: 'C',
-      answer4: 'D'
- }
- var  questionFour = {
-      question: 'what is a variable?',
-      answer1: 'A',
-      answer2: 'B',
-      answer3: 'C',
-      answer4: 'D'
- }
+
+
+
+var questionOne = {
+    question: 'What is an object?',
+    answer1: 'A',
+    answer2: 'B', //correct
+    answer3: 'C',
+    answer4: 'D'
+}
+var questionTwo = {
+    question: 'what is an Array?',
+    answer1: 'AA',
+    answer2: 'BB',
+    answer3: 'CC',
+    answer4: 'DD' //correct
+}
+var questionThree = {
+    question: 'what is the DOM?',
+    answer1: 'AAA', // correct
+    answer2: 'BBB',
+    answer3: 'CCC',
+    answer4: 'DDD'
+}
+var questionFour = {
+    question: 'what is a variable?',
+    answer1: 'AAAA',
+    answer2: 'BBBB',
+    answer3: 'CCCC', //correct
+    answer4: 'DDDD'
+}
+
+
 // WHEN I click the start button
-startButtonHtml.addEventListener("click",function(){
-  quizQuestionsHtml.innerHTML = questionONE.question
-  console.log(questionONE.question);
-  oneHtml.innerHTML = questionONE.answer1;
-  console.log(questionONE.answer1);
-  twoHtml.innerHTML = questionTwo.answer2;
-  console.log(questionONE.answer2);
-  threeHtml.innerHTML = questionThree.answer3;
-  console.log(questionONE.answer3);
-  fourHtml.innerHTML = questionFour.answer4;
-  console.log(questionONE.answer4)
+var questionAnswerArray = [questionOne, questionTwo, questionThree, questionFour];
+
+
+
+startButtonHtml.addEventListener("click", function() {
+    quizQuestionHtml.innerHTML = questionAnswerArray[0].question;
+    oneHtml.innerHTML = questionAnswerArray[0].answer1;
+    twoHtml.innerHTML = questionAnswerArray[0].answer2;
+    threeHtml.innerHTML = questionAnswerArray[0].answer3;
+    fourHtml.innerHTML = questionAnswerArray[0].answer4;
+    countdown()
+    console.log(countdown())
 });
+var userScore = 100;
+var timeleft = 60;
+var i = 0;
+
+
+
+//var correctAnswerArray = [questionAnswerArray[0].answer2, questionAnswerArray[1].answer4, questionAnswerArray[2].answer1, questionAnswerArray[3].answer3];
 // need a button 
-// need a click eventt listener
+
+quizAnswerHtml.addEventListener("click", function(event) {
+    var targetHtmlElement = event.target;
+
+    if (((targetHtmlElement.matches("#twoHtml")) && (twoHtml.innerHTML == questionAnswerArray[0].answer2)) ||
+        ((targetHtmlElement.matches("#fourHtml")) && (fourHtml.innerHTML == questionAnswerArray[1].answer4)) ||
+        ((targetHtmlElement.matches("#oneHtml")) && (oneHtml.innerHTML == questionAnswerArray[2].answer1)) ||
+        ((targetHtmlElement.matches("#threeHtml")) && (threeHtml.innerHTML == questionAnswerArray[3].answer3))) {
+
+        var correctAnswerMsg = document.createElement("div");
+        correctAnswerMsg.innerHTML = "you got question " + (i + 1) + " correct! ✔️";
+        document.getElementById('quizContainerHtml').appendChild(correctAnswerMsg);
+
+        setTimeout(function() {
+            correctAnswerMsg.innerHTML = '';
+        }, 1000);
+
+    } else {
+
+        var wrongAnswerMsg = document.createElement("div");
+        wrongAnswerMsg.textContent = "Wrong! the correct answer " + i + " was " + questionAnswerArray[i].answer2;
+        document.getElementById('quizContainerHtml').appendChild(wrongAnswerMsg);
+
+        setTimeout(function() {
+            wrongAnswerMsg.innerHTML = '';
+        }, 1000);
+
+        console.log(userScore + "score after user gets it wrong");
+
+
+    }
+
+    i++
+    quizQuestionHtml.innerHTML = questionAnswerArray[i].question;
+    oneHtml.innerHTML = questionAnswerArray[i].answer1;
+    twoHtml.innerHTML = questionAnswerArray[i].answer2;
+    threeHtml.innerHTML = questionAnswerArray[i].answer3;
+    fourHtml.innerHTML = questionAnswerArray[i].answer4;
+
+
+
+    if (quizQuestionHtml.innerHTML = questionAnswerArray[3].question) {
+        var scoreBox = document.createElement("div");
+        console.log(scoreBox)
+        scoreBox.innerHTML = "congrats you finished! your score is " + userScore + "%";
+        console.log('sdsdsds', document.querySelector('#scoreContainer'));
+        document.querySelector('#scoreContainer').appendChild(scoreBox);
+
+
+    } else {
+        timeLeft = (timeLeft - 15);
+        timerCountHtml.innerHTML = '0';
+        clearInterval(timeInterval);
+    };
+
+});
+
+// // need a click eventt listener
+function countdown() {
+
+
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    var timeInterval = setInterval(function() {
+        // As long as the `timeLeft` is greater than 1
+        if (timeLeft > 1) {
+            // Set the `textContent` of `timerEl` to show the remaining seconds
+            timerCount.textContent = timeLeft + ' seconds remaining';
+            // Decrement `timeLeft` by 1
+            timeLeft--;
+        } else if (timeLeft === 1) {
+            // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
+            timerCount.textContent = timeLeft + ' second remaining';
+            timeLeft--;
+        } else {
+            // Once `timeLeft` gets to 0, set `timerEl` to an empty string
+            timerCount.textContent = '';
+            // Use `clearInterval()` to stop the timer
+            clearInterval(timeInterval);
+            // Call the `displayMessage()` function
+
+        }
+    }, 1000);
+}
 // THEN a timer startsa countdown(60 sec) and I am presented with a question
 // timer functionto start on that click event listener
 //show a questionfrom our array of question/answer object
@@ -257,4 +352,4 @@ startButtonHtml.addEventListener("click",function(){
 //   setLosses()
 // }
 // // Attaches event listener to button
-// resetButton.addEventListener("click", resetGame);
+// resetButton.addEventListener("click", resetGame)
