@@ -30,7 +30,7 @@
                                 border-radius: 8px;
                                 color: #13293d;
                                 cursor: pointer;
-                                font-size: 2em;
+                                font-size: 1em;
                                 letter-spacing: 0.21px;
                                 line-height: 16px;
                                 max-width: 255px;
@@ -45,8 +45,8 @@
                             header {
                                 padding: 40px;
                                 text-align: center;
-                                background: #13293d;
-                                color: #fff;
+                                background: #05c0b7;
+                                color: rgb(2, 10, 78);
                                 border-bottom: 30px #879274;
                             }
                             
@@ -120,7 +120,7 @@
                             }
                             
                             @media screen and (max-width: 504px) {
-                                .large-font {
+                                .Large-font {
                                     font-size: 2em;
                                 }
                                 .reset-button {

@@ -10,54 +10,52 @@ var oneHtml = document.querySelector("#oneHtml");
 var twoHtml = document.querySelector("#twoHtml");
 var threeHtml = document.querySelector("#threeHtml");
 var fourHtml = document.querySelector("#fourHtml");
-var timerCount = document.querySelector("#timerCount")
-
-
+var timerCountHtml = document.querySelector("#timerCount")
+var scoreBox = document.querySelector("#scorebox")
+var nameInput = document.querySelector("#nameInput")
+var scoreButton = document.querySelector("#scoreButton")
+var scoreContainer = document.querySelector("#scoreContainer")
+var timeLeft = 60;
 //  var  = "";
 //  var = 0;
 //  var  = 0;
 //  var  = 0;
 //  var isWin = false;
 //  var timer;
-var timeLeft = 60;
-var userScore = 100
-
-
-
 
 var questionOne = {
-    question: 'What is an object?',
-    answer1: 'A',
-    answer2: 'B', //correct
-    answer3: 'C',
-    answer4: 'D'
+    question: 'An Object as what?',
+    answer1: 'Length and Width',
+    answer2: 'State and Behavior', //correct
+    answer3: 'Weight and Mass',
+    answer4: 'Color and Style'
 }
 var questionTwo = {
-    question: 'what is an Array?',
-    answer1: 'AA',
-    answer2: 'BB',
-    answer3: 'CC',
-    answer4: 'DD' //correct
+    question: 'Each item of an array is an?',
+    answer1: 'Object',
+    answer2: 'String',
+    answer3: 'Chain',
+    answer4: 'Element' //correct
 }
 var questionThree = {
-    question: 'what is the DOM?',
-    answer1: 'AAA', // correct
-    answer2: 'BBB',
-    answer3: 'CCC',
-    answer4: 'DDD'
+    question: 'The Document Object Model (DOM) is a programming interface for ?',
+    answer1: 'HTML and XML', // correct
+    answer2: 'CSS and C++',
+    answer3: 'Bootstrap and Jquery',
+    answer4: 'API and FBI'
 }
 var questionFour = {
-    question: 'what is a variable?',
-    answer1: 'AAAA',
-    answer2: 'BBBB',
-    answer3: 'CCCC', //correct
-    answer4: 'DDDD'
+    question: 'Variables are typically used to store?',
+    answer1: 'Goods',
+    answer2: 'Network',
+    answer3: 'Information', //correct
+    answer4: 'DOM'
 }
 
 
 // WHEN I click the start button
 var questionAnswerArray = [questionOne, questionTwo, questionThree, questionFour];
-
+var scorekeeperArray = [];
 
 
 startButtonHtml.addEventListener("click", function() {
@@ -66,15 +64,24 @@ startButtonHtml.addEventListener("click", function() {
     twoHtml.innerHTML = questionAnswerArray[0].answer2;
     threeHtml.innerHTML = questionAnswerArray[0].answer3;
     fourHtml.innerHTML = questionAnswerArray[0].answer4;
-    countdown()
-    console.log(countdown())
 });
 var userScore = 100;
-var timeleft = 60;
+
 var i = 0;
 
+function getLocal(scorekeeperArray) {
+    if (localStorage.getItem("final score") === null) {
+        return scorekeeperArray;
+    } else {
+        return JSON.parse(localStorage.getItem("final score"));
+    }
+}
 
-
+function sortScore(scorekeeperArray) {
+    scorekeeperArray = scorekeeperArray.sort(function(a, b) { return a.scorebox - b.scorebox });
+    scorekeeperArray = scorekeeperArray.reverse();
+    return scorekeeperArray;
+}
 //var correctAnswerArray = [questionAnswerArray[0].answer2, questionAnswerArray[1].answer4, questionAnswerArray[2].answer1, questionAnswerArray[3].answer3];
 // need a button 
 
@@ -109,57 +116,55 @@ quizAnswerHtml.addEventListener("click", function(event) {
 
     }
 
-    i++
+    i++;
+
+    if (questionAnswerArray.length == i) {
+
+        scoreBox.innerHTML = "congrats you finished! your score is " + userScore + "%";
+        clearInterval(timeInterval);
+
+        scoreButton.addEventListener("click", function() {
+            scorekeeperArray = getLocal(scorekeeperArray);
+            var scoreContainer = {
+                name: nameInput.value,
+                score: scoreBox
+            }
+            scorekeeperArray.push(scoreButton);
+            sortScore(scorekeeperArray);
+
+            for (var i = 0; i < scorekeeperArray.length; i++) {
+                var user = scorekeeperArray[i];
+
+                var newScore = document.createElement("userScore");
+                newScore.textContent = "score: " + user.score + "nameInput:" + user.name;
+                scoreBox.appendChild(newScore);
+            }
+        })
+    }
     quizQuestionHtml.innerHTML = questionAnswerArray[i].question;
     oneHtml.innerHTML = questionAnswerArray[i].answer1;
     twoHtml.innerHTML = questionAnswerArray[i].answer2;
     threeHtml.innerHTML = questionAnswerArray[i].answer3;
     fourHtml.innerHTML = questionAnswerArray[i].answer4;
 
-
-
-    if (quizQuestionHtml.innerHTML = questionAnswerArray[3].question) {
-        var scoreBox = document.createElement("div");
-        console.log(scoreBox)
-        scoreBox.innerHTML = "congrats you finished! your score is " + userScore + "%";
-        console.log('sdsdsds', document.querySelector('#scoreContainer'));
-        document.querySelector('#scoreContainer').appendChild(scoreBox);
-
-
-    } else {
-        timeLeft = (timeLeft - 15);
-        timerCountHtml.innerHTML = '0';
-        clearInterval(timeInterval);
-    };
-
 });
 
 // // need a click eventt listener
-function countdown() {
 
 
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function() {
-        // As long as the `timeLeft` is greater than 1
-        if (timeLeft > 1) {
-            // Set the `textContent` of `timerEl` to show the remaining seconds
-            timerCount.textContent = timeLeft + ' seconds remaining';
-            // Decrement `timeLeft` by 1
-            timeLeft--;
-        } else if (timeLeft === 1) {
-            // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-            timerCount.textContent = timeLeft + ' second remaining';
-            timeLeft--;
-        } else {
-            // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-            timerCount.textContent = '';
-            // Use `clearInterval()` to stop the timer
+
+// Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+var timeInterval = setInterval(function() {
+        timeLeft--;
+        timerCountHtml.textContent = timeLeft;
+
+        if (timeLeft == 0) {
             clearInterval(timeInterval);
-            // Call the `displayMessage()` function
-
+            //game over
         }
-    }, 1000);
-}
+    },
+    1000);
+
 // THEN a timer startsa countdown(60 sec) and I am presented with a question
 // timer functionto start on that click event listener
 //show a questionfrom our array of question/answer object
