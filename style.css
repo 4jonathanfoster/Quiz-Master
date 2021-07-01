@@ -3,13 +3,13 @@
                             }
                             
                             body {
-                                font-family: Arial;
+                                font-family: 'Press Start 2P', cursive, important;
                                 margin: 0;
                                 display: flex;
                                 flex-direction: column;
                                 min-height: 100vh;
                                 justify-content: flex-start;
-                                background: linear-gradient(0deg, rgba(19, 41, 61, 1) 0%, rgba(237, 245, 249, 1) 63%);
+                                background: linear-gradient(0deg, rgb(247, 223, 10) 0%, rgb(247, 223, 10) 63%);
                             }
                             
                             .reset-button {
@@ -26,7 +26,7 @@
                             }
                             
                             button {
-                                background: radial-gradient(circle, rgba(240, 230, 140, 1) 0%, rgba(187, 96, 33, 0.9542191876750701) 100%);
+                                background: radial-gradient(circle, rgb(247, 223, 10) 0%, rgb(61, 184, 5) 100%);
                                 border-radius: 8px;
                                 color: #13293d;
                                 cursor: pointer;
@@ -43,10 +43,11 @@
                             }
                             
                             header {
+                                font-family: font-family: 'Press Start 2P', cursive;
                                 padding: 40px;
                                 text-align: center;
-                                background: #05c0b7;
-                                color: rgb(2, 10, 78);
+                                background: green;
+                                color: orange;
                                 border-bottom: 30px #879274;
                             }
                             
@@ -60,7 +61,7 @@
                                 flex: 0 auto;
                                 padding: 8px;
                                 margin-top: 50px;
-                                background-color: white;
+                                background-color: rgb(233, 137, 27);
                                 border-radius: 8px;
                             }
                             
@@ -96,7 +97,7 @@
                                 height: 240px;
                                 padding: 10px;
                                 background: #13293d;
-                                color: #fff;
+                                color: rgb(158, 14, 14);
                                 text-align: center;
                             }
                             
@@ -113,7 +114,7 @@
                                     width: 90vw;
                                 }
                                 section {
-                                    background-color: white;
+                                    background-color: rgba(240, 133, 61, 0.555);
                                     margin: 20px auto;
                                     width: 92vw;
                                 }

@@ -6,11 +6,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
     <header>
-        <h1>Quiz Master</h1>
+        <h1 id="quiz">Quiz Master</h1>
         <div id="large-font">Good Luck</div>
     </header>
 
@@ -28,13 +33,17 @@
         <button id="startButtonHtml">Start</button>
         <section>
             <div id="timerContainer">Timer
-                <div id="timerCount">60 div
+                <div id="timerCount">60
                 </div>
                 <div id="scoreContainer">
                     <div id="scorebox">
+                        <div id="Finish"></div>
                         <div>Enter Intials</div>
-                        <input id="nameInput"></input>
+                        <input id="nameInput">Initials</input>
                         <button id="scoreButton">Finish</button>
+                        <div>scoreboard
+                            <ul id="final-score">Initials</ul>
+                        </div>
                     </div>
         </section>
     </main>
